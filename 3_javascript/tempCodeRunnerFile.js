@@ -1,1 +1,0 @@
-const gamename = new String ('akashsky')
