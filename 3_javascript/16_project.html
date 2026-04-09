@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>color project</title>
+    <style>
+      
+      .button {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        margin: 10px;
+      }
+      #grey {
+        background-color: grey;
+      }
+      #blue {
+        background-color: blue;
+      }
+      #green {
+        background-color: green;
+      }
+      #red {
+        background-color: red;
+      }
+
+    </style>
+  </head>
+  <body >
+    <div class="canvas">
+      <h1>color change</h1>
+      <span class="button" id="grey"></span
+      ><span class="button" id="blue"></span
+      ><span class="button" id="green"></span
+      ><span class="button" id="red"></span>
+      <h2>tap to gb color change</h2>
+    </div>
+  </body>
+  <script>
+    const buttons = document.querySelectorAll(".button")
+    const body = document.querySelector("body")
+
+    buttons.forEach(function (hlo) {
+        console.log(hlo);
+        hlo.addEventListener('click',function(e) {
+            //console.log(e);
+            console.log(e.target);
+            if (e.target.id === "grey") {
+                body.style.background = e.target.id;
+            }
+            if (e.target.id === "blue") {
+                body.style.background = e.target.id;
+            }
+            if (e.target.id === "green") {
+                body.style.background = e.target.id;
+            }
+            if (e.target.id === "red") {
+                body.style.background = e.target.id;
+            }            
+        })
+    })
+    
+  </script>
+</html>
