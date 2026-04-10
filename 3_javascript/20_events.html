@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event</title>
+</head>
+<body>
+    <h1 id="click1"><p id="click">hlo</p></h1>
+    
+    <button id ="click2">hlo</button>
+    <h1 id="button" >
+        <button id="botton1">hi</button>
+        <button id="botton2">hi</button>
+        <button id="botton3">hi</button>
+    </h1>
+</body>
+<script>
+    document.getElementById('click2').onclick = function (){
+        alert('rom rom bhai')
+    }
+        //another way
+    document.getElementById('click1').addEventListener('click',function(e){
+        
+        console.log('click click1')
+    },false) //false from target to up true up to target
+    document.getElementById('click').addEventListener('click',function(e){
+        e.preventDefault() //if we click on link then it prevent to open link
+        e.stopPropagation() //sirf target hi click hoga hoga
+        console.log('click click')
+    },false)
+    
+    document.querySelector('#button').addEventListener('click',(e)=>{
+        console.log(e.target.tagName);
+        if (e.target.tagName==="BUTTON"){
+            let remove = e.target
+            remove.parentNode.removeChild(remove)
+        }
+        //e.target.remove() //use parentNode to delete target parent or use if else to remove specific target
+        
+    })
+    
+</script>
+</html>
