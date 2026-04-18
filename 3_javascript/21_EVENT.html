@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event2</title>
+</head>
+<body>
+    <h1>akash</h1>
+    <button id="click">box</button>
+</body>
+<script>
+    setTimeout(()=>{
+        console.log("akash");
+        
+    },2000)
+    //other way
+    const akash = function () {
+        console.log("akash");
+        
+    }
+    const change = function () {
+        document.querySelector('h1').innerHTML="welcome to website"
+
+        
+    }
+    const changene = setTimeout(change,2000)
+    document.querySelector("#click").addEventListener("click",function (){
+        clearTimeout(changene)
+        console.log("stop");
+        
+    })
+    
+</script>
+</html>
