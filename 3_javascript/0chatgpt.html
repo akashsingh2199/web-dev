@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Color Generator Pro</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      transition: background 0.8s ease;
+    }
+
+    /* Glass Card */
+    .card {
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.15);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* Color Code */
+    #colorCode {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    /* Buttons */
+    button {
+      padding: 12px 20px;
+      margin: 8px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      background: black;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      opacity: 0;
+      transition: 0.5s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1 id="colorCode">#FFFFFF</h1>
+
+    <div class="buttons">
+      <button id="start">Start</button>
+      <button id="stop">Pause</button>
+      <button id="reset">Reset</button>
+      <button id="copy">Copy</button>
+    </div>
+  </div>
+
+  <div id="toast">Copied!</div>
+
+  <script>
+    const colorCode = document.getElementById("colorCode");
+    const startBtn = document.getElementById("start");
+    const stopBtn = document.getElementById("stop");
+    const resetBtn = document.getElementById("reset");
+    const copyBtn = document.getElementById("copy");
+    const toast = document.getElementById("toast");
+
+    let intervalId = null;
+
+    // 🎨 Generate random color
+    function generateColor() {
+      const hex = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += hex[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    // 🧠 Auto text contrast
+    function getTextColor(bgColor) {
+      const r = parseInt(bgColor.substr(1, 2), 16);
+      const g = parseInt(bgColor.substr(3, 2), 16);
+      const b = parseInt(bgColor.substr(5, 2), 16);
+
+      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      return brightness > 125 ? "black" : "white";
+    }
+
+    // 🎯 Apply color
+    function applyColor() {
+      const newColor = generateColor();
+      document.body.style.background = newColor;
+      colorCode.textContent = newColor;
+
+      const textColor = getTextColor(newColor);
+      document.body.style.color = textColor;
+    }
+
+    // ▶️ Start
+    function start() {
+      if (!intervalId) {
+        applyColor();
+        intervalId = setInterval(applyColor, 1000);
+
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+      }
+    }
+
+    // ⏸ Pause
+    function stop() {
+      clearInterval(intervalId);
+      intervalId = null;
+
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+    }
+
+    // 🔄 Reset
+    function reset() {
+      clearInterval(intervalId);
+      intervalId = null;
+
+      document.body.style.background = "#ffffff";
+      document.body.style.color = "black";
+      colorCode.textContent = "#FFFFFF";
+
+      startBtn.disabled = false;
+      stopBtn.disabled = false;
+    }
+
+    // 📋 Copy
+    function copyColor() {
+      navigator.clipboard.writeText(colorCode.textContent);
+
+      toast.style.opacity = 1;
+      setTimeout(() => {
+        toast.style.opacity = 0;
+      }, 1500);
+    }
+
+    // 🎯 Events
+    startBtn.addEventListener("click", start);
+    stopBtn.addEventListener("click", stop);
+    resetBtn.addEventListener("click", reset);
+    copyBtn.addEventListener("click", copyColor);
+  </script>
+
+</body>
+</html>
