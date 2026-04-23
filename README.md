@@ -1,4 +1,4 @@
-web development repo
+web development repo by "chai aor code" 
 html
 css
 js
